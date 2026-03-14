@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoVision - Illuminate your imagination with shaders.</title>
+    
+    <link rel="stylesheet" href="https://bloxshade.com/src/css/reset.css">
+    <link rel="stylesheet" href="https://bloxshade.com/src/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round" rel="stylesheet">
+    
+    <style>
+        /* Base Overrides */
+        .modal { display: none !important; }
+        .btn-download-wrapper { text-decoration: none; display: contents; }
+
+        /* --- Dynamic Interactive Background --- */
+        .bg-image { 
+            position: relative;
+            min-height: 100vh;
+            background-color: #05050a !important; /* Base dark color */
+            overflow: hidden;
+            /* This creates the glow that follows the mouse */
+            background-image: radial-gradient(
+                circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(63, 94, 251, 0.15) 0%, 
+                rgba(252, 70, 107, 0.05) 30%, 
+                transparent 60%
+            ) !important;
+        }
+
+        /* Animated Grain/Noise for texture (Optional but adds "Shader" vibe) */
+        .bg-image::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .overlay {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- Rainbow Theme Elements --- */
+        @keyframes rainbow-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .rainbow-text {
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow-flow 8s ease infinite;
+            font-weight: bold;
+        }
+
+        .logo a {
+            background: linear-gradient(90deg, #00dbde, #fc00ff, #00dbde);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow-flow 5s linear infinite;
+        }
+
+        .btn-1 {
+            background: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
+            border: none !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-1 .material-icons-round { line-height: 1; font-size: 20px; }
+
+        .btn-1:hover {
+            transform: translateY(-2px);
+            filter: hue-rotate(15deg);
+            box-shadow: 0 0 25px rgba(106, 17, 203, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="navbar">
+            <div class="logo"><a href="#">RoVision</a></div>
+            <ul class="menu">
+                <a href="https://discord.gg/kUQa896Wdj" target="_blank">Discord</a>
+                <a href="https://www.youtube.com/c/Extravi" target="_blank">YouTube</a>
+                <a href="#">Docs</a>
+                <a href="#comparisons">Comparisons</a>
+            </ul>
+        </div>
+    </div>
+
+    <main>
+        <div class="bg-image" id="interactive-bg">
+            <div class="overlay">
+                <h1>Illuminate <span class="rainbow-text">your</span> imagination<br>with shaders.</h1>
+                <h2 class="h2-width overlay-h2">Advanced post-processing, now within reach.</h2>
+                <div class="button-wrapper">
+                    <a href="RoVision.zip" download="RoVision.zip" class="btn-download-wrapper">
+                        <button class="btn-1" type="button">Download<span class="material-icons-round">download</span></button>
+                    </a>
+                    <a href="#comparisons" class="btn-link">
+                        <button class="btn-2">Comparisons<span class="material-icons-round">expand_more</span></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section id="comparisons" class="section">
+            <h3>Comparisons</h3>
+            <div class="before-after-container-parent">
+                <div class="before-after-container">
+                    <div class="before-after">
+                        <div class="before"><img src="https://bloxshade.com/src/images/before-1.jpg" alt="Before"></div>
+                        <div class="after"><img src="https://bloxshade.com/src/images/after-1.jpg" alt="After"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="convinced" class="section">
+            <h3>Convinced?</h3>
+            <h2>Download <span class="rainbow-text">RoVision</span> now and experience the power of personalized aesthetics.</h2>
+            <a href="RoVision.zip" download="RoVision.zip" class="btn-download-wrapper">
+                <button class="btn-1" type="button">Download Now<span class="material-icons-round">download</span></button>
+            </a>
+        </section>
+
+        <footer>
+            <div class="container">
+                <ul>
+                    <li><a href="https://discord.gg/kUQa896Wdj" target="_blank">Discord</a></li>
+                    <li><a href="https://www.youtube.com/c/Extravi" target="_blank">YouTube</a></li>
+                </ul>
+                <p>&copy; 2026 Extravi. All rights reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
+
+    <script>
+        const bg = document.getElementById('interactive-bg');
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            bg.style.setProperty('--mouse-x', x + '%');
+            bg.style.setProperty('--mouse-y', y + '%');
+        });
+    </script>
+</body>
+</html>
